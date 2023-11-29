@@ -1,0 +1,52 @@
+image: node:18
+
+definitions:
+  services:
+    rabbit:
+      image: rabbitmq:3-alpine
+      memory: 512
+    docker:
+      memory: 512  # reduce memory for docker-in-docker from 1GB to 512MB
+  steps:
+    - step: &build
+        name: Build
+        script:
+          - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          - npm i -g bitbucket-utils
+          - npm install
+          - npm run build
+        artifacts:
+          - '**'  # copy the entire build directory to subsequent steps
+
+    - step: &test
+        name: Test
+        script:
+          - npm test
+        services:
+          - rabbit
+
+    - step: &publish
+        name: Publish
+        deployment: npm
+        script:
+          - npx semantic-release
+
+pipelines:
+  default:
+    - step: *build
+    - step: *test
+  branches:
+    beta:
+      - step: *build
+      - step: *test
+      - step: *publish
+
+    master:
+      - step: *build
+      - step: *test
+      - step: *publish
+
+    next:
+      - step: *build
+      - step: *test
+      - step: *publish

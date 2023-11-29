@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title>Telemetry</title>
+  </head>
+
+  <style type="text/css">
+    pre {
+      background-color: ghostwhite;
+      border: 1px solid silver;
+      padding: 10px 20px;
+      margin: 20px;
+    }
+    .json-key {
+      color: brown;
+    }
+    .json-value {
+      color: navy;
+    }
+    .json-string {
+      color: olive;
+    }
+  </style>
+
+  <body>
+    <h1>Example Telemetry Client</h1>
+
+    <div>
+      <pre id="root"></pre>
+    </div>
+
+    <script type="text/javascript">
+      const library = {}
+
+      library.json = {
+        replacer: function (match, pIndent, pKey, pVal, pEnd) {
+          var key = '<span class=json-key>'
+          var val = '<span class=json-value>'
+          var str = '<span class=json-string>'
+          var r = pIndent || ''
+          if (pKey) r = r + key + pKey.replace(/[": ]/g, '') + '</span>: '
+          if (pVal) r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>'
+          return r + (pEnd || '')
+        },
+        prettyPrint: function (obj) {
+          var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/gm
+          return JSON.stringify(obj, null, 3)
+            .replace(/&/g, '&amp;')
+            .replace(/\\"/g, '&quot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(jsonLine, library.json.replacer)
+        },
+      }
+
+      fetch('/telemetry')
+        .then((r) => r.json())
+        .then((json) => {
+          document.querySelector('#root').innerHTML = library.json.prettyPrint(
+            json,
+          )
+        })
+    </script>
+  </body>
+</html>
