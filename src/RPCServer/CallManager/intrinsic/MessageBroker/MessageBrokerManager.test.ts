@@ -9,7 +9,7 @@ describe('MessageBrokerManager', () => {
         displayName: 'test',
         ephemeralId: Math.random().toString(),
         messageBroker: {
-          amqpURI: 'amqp://localhost:5672',
+          amqpURI: 'amqp://guest:guest@localhost:5672',
         },
       },
       eventBus: new EventBus(),

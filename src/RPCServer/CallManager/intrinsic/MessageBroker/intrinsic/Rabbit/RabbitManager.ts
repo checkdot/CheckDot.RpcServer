@@ -35,9 +35,13 @@ export class RabbitManager implements IMessageBroker {
     }
 
     this.connection = amqp.connect([options.config.messageBroker.amqpURI], {
-      // credentials: {
-      //   username: '',
-      //   password: ''
+      // connectionOptions: { 
+      //   credentials: {
+      //     mechanism: '',
+      //     username: '',
+      //     password: '',
+      //     response: () => { return Buffer.from([]); }
+      //   }
       // },
       heartbeatIntervalInSeconds: 5,
     })

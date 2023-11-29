@@ -10,7 +10,8 @@
     "example": " ts-node-dev src/example/example-gateway.ts",
     "test": "jest",
     "test-gui": "npx majestic",
-    "types": "tsc --declaration --emitDeclarationOnly"
+    "types": "tsc --declaration --emitDeclarationOnly",
+    "run-rabbitmq": "docker compose -f docker-rabbit-mq-compose.yml up"
   },
   "author": "cory@therms.io",
   "license": "UNLICENSED",
