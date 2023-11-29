@@ -2,6 +2,9 @@
 
 Based On @therms/rpc-server
 
+Principal components:  
+`RPCServer & TelemetryServer`  
+
 ![rpc_logo.png](rpc_logo.png)
 
 A _Remote Method Call_ framework for Javascript Node.js written in TS.
