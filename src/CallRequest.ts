@@ -128,6 +128,7 @@ export class CallRequest<Args = any> implements ICallRequest {
     authorization?: string
     deviceName?: string
     metadata?: { [key: string]: any }
+    id?: string
   };
   method: string
   scope?: string
