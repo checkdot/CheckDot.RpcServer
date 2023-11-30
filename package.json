@@ -1,6 +1,6 @@
 {
   "name": "checkdot-rpc-server",
-  "version": "2.19.11",
+  "version": "2.19.13",
   "description": "RPC framework, Node.js lib",
   "private": false,
   "main": "dist/index.js",

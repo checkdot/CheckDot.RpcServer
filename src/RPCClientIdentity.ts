@@ -4,7 +4,8 @@
 export interface RPCClientIdentity {
   authorization?: string
   deviceName?: string
-  metadata?: { [key: string]: any }
+  metadata?: { [key: string]: any },
+  id?: string
 }
 
 export function isIdentityValid(identity: RPCClientIdentity) {

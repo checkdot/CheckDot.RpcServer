@@ -226,7 +226,7 @@ export class WebSocketServer implements Server {
                     CallRequest.fromCallRequestDTO(
                       {
                         ...incomingMessage,
-                        // we add a method because CallRequest.fromCallRequestDTO requires a method on incoming RPC's
+                        // we add a procedure because CallRequest.fromCallRequestDTO requires a procedure on incoming RPC's
                         method: '__internal-identity__',
                       },
                       { trace: { caller: 'WebSocketServer' } },
@@ -293,7 +293,7 @@ export class WebSocketServer implements Server {
               CallRequest.fromCallRequestDTO(
                 {
                   ...requestDTO,
-                  // we add a method because CallRequest.fromCallRequestDTO requires a method on incoming RPC's
+                  // we add a procedure because CallRequest.fromCallRequestDTO requires a procedure on incoming RPC's
                   method: '__internal-set-identity__',
                 },
                 { trace: { caller: 'WebSocketServer' } },

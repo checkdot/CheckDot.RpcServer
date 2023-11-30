@@ -13,12 +13,14 @@ export interface ICallRequestDescription {
 
 export interface ICallRequestDTO<Args = unknown> {
   args?: Args
+  params?: Args
   correlationId?: any
   identity?: {
     authorization?: string
     deviceName?: string
     metadata?: { [key: string]: any }
-  }
+  },
+  id?: string;
   method?: string
   scope?: string
   version?: string
@@ -60,9 +62,9 @@ export class CallRequest<Args = any> implements ICallRequest {
     }
 
     return new CallRequest({
-      args: callRequestDTO.args,
+      args: callRequestDTO.args ?? callRequestDTO.params,
       correlationId: callRequestDTO.correlationId,
-      identity: callRequestDTO.identity,
+      identity: { id: callRequestDTO.id, ... callRequestDTO.identity },
       method: callRequestDTO.method,
       scope: callRequestDTO.scope ?? 'global',
       version: callRequestDTO.version ?? callRequestDTO.jsonrpc ?? undefined,
@@ -126,7 +128,7 @@ export class CallRequest<Args = any> implements ICallRequest {
     authorization?: string
     deviceName?: string
     metadata?: { [key: string]: any }
-  }
+  };
   method: string
   scope?: string
   version?: string
